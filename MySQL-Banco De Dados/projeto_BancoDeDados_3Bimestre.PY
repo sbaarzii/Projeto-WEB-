@@ -61,10 +61,10 @@ def consultarLocais():
         if comandosql.rowcount > 0:
             # se existir pelo menos uma disciplina na tabela temporária, mostre os dadosda coluna 1
             for registro in tabela:
-            print(f'Nome do Local: {registro[1]}')
-            return 'cadastrado'
+                print(f'Nome do Local: {registro[1]}')
+                return 'cadastrado'
         else:
-            return 'não cadastrado'
+            return 'naoCadastrado'
     except Exception as error:
         return (f'Ocorreu erro ao tentar consultar este local: Erro===>>> {error}')    
 
