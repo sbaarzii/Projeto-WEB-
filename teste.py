@@ -1,1 +1,0 @@
-print("usando esse arquivo para testar o git e suas funcionalidades")
