@@ -5396,3 +5396,350 @@ Trace:
 #7 C:\xampp\htdocs\api.php(4): Roteador->start()
 #8 {main} 
  **************************************************************************************************** 
+[2025-08-21 00:27:24.000] [Throwable] 
+ Throwable:
+Message: Class "Funcionario" not found
+Code: 0
+File: C:\xampp\htdocs\api\src\controllers\LoginControl.php
+Line: 30
+Trace:
+#0 C:\xampp\htdocs\api\src\routes\Roteador.php(103): LoginControl->autenticar(Object(stdClass))
+#1 C:\xampp\htdocs\api\src\routes\Router.php(458): Roteador->{closure}()
+#2 C:\xampp\htdocs\api\src\routes\Router.php(440): Router->invoke(Object(Closure), Array)
+#3 C:\xampp\htdocs\api\src\routes\Router.php(287): Router->handle(Array, true)
+#4 C:\xampp\htdocs\api\src\routes\Roteador.php(506): Router->run()
+#5 C:\xampp\htdocs\api.php(4): Roteador->start()
+#6 {main} 
+ **************************************************************************************************** 
+[2025-08-21 00:28:48.000] [Throwable] 
+ Throwable:
+Message: Class "Funcionario" not found
+Code: 0
+File: C:\xampp\htdocs\api\src\controllers\LoginControl.php
+Line: 30
+Trace:
+#0 C:\xampp\htdocs\api\src\routes\Roteador.php(103): LoginControl->autenticar(Object(stdClass))
+#1 C:\xampp\htdocs\api\src\routes\Router.php(458): Roteador->{closure}()
+#2 C:\xampp\htdocs\api\src\routes\Router.php(440): Router->invoke(Object(Closure), Array)
+#3 C:\xampp\htdocs\api\src\routes\Router.php(287): Router->handle(Array, true)
+#4 C:\xampp\htdocs\api\src\routes\Roteador.php(506): Router->run()
+#5 C:\xampp\htdocs\api.php(4): Roteador->start()
+#6 {main} 
+ **************************************************************************************************** 
+[2025-08-21 00:28:51.000] [Throwable] 
+ Throwable:
+Message: Class "Funcionario" not found
+Code: 0
+File: C:\xampp\htdocs\api\src\controllers\LoginControl.php
+Line: 30
+Trace:
+#0 C:\xampp\htdocs\api\src\routes\Roteador.php(103): LoginControl->autenticar(Object(stdClass))
+#1 C:\xampp\htdocs\api\src\routes\Router.php(458): Roteador->{closure}()
+#2 C:\xampp\htdocs\api\src\routes\Router.php(440): Router->invoke(Object(Closure), Array)
+#3 C:\xampp\htdocs\api\src\routes\Router.php(287): Router->handle(Array, true)
+#4 C:\xampp\htdocs\api\src\routes\Roteador.php(506): Router->run()
+#5 C:\xampp\htdocs\api.php(4): Roteador->start()
+#6 {main} 
+ **************************************************************************************************** 
+[2025-08-21 00:41:58.000] [Throwable] 
+ Throwable:
+Message: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')
+                    ORDER BY nomeFuncionario ASC' at line 8
+Code: 42000
+File: C:\xampp\htdocs\api\src\DAO\LoginDAO.php
+Line: 45
+Trace:
+#0 C:\xampp\htdocs\api\src\DAO\LoginDAO.php(45): PDOStatement->execute()
+#1 C:\xampp\htdocs\api\src\controllers\LoginControl.php(25): LoginDAO->verificarLogin(Object(Funcionario))
+#2 C:\xampp\htdocs\api\src\routes\Roteador.php(103): LoginControl->autenticar(Object(stdClass))
+#3 C:\xampp\htdocs\api\src\routes\Router.php(458): Roteador->{closure}()
+#4 C:\xampp\htdocs\api\src\routes\Router.php(440): Router->invoke(Object(Closure), Array)
+#5 C:\xampp\htdocs\api\src\routes\Router.php(287): Router->handle(Array, true)
+#6 C:\xampp\htdocs\api\src\routes\Roteador.php(506): Router->run()
+#7 C:\xampp\htdocs\api.php(4): Roteador->start()
+#8 {main} 
+ **************************************************************************************************** 
+[2025-08-22 00:52:38.000] [Throwable] 
+ Throwable:
+Message: SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`biblioteca`.`livro`, CONSTRAINT `livro_ibfk_1` FOREIGN KEY (`idAutor`) REFERENCES `autor` (`idAutor`))
+Code: 23000
+File: C:\xampp\htdocs\api\src\DAO\AutorDAO.php
+Line: 45
+Trace:
+#0 C:\xampp\htdocs\api\src\DAO\AutorDAO.php(45): PDOStatement->execute()
+#1 C:\xampp\htdocs\api\src\controllers\AutorControl.php(111): AutorDAO->delete(1)
+#2 C:\xampp\htdocs\api\src\routes\Roteador.php(228): AutorControl->destroy(1)
+#3 C:\xampp\htdocs\api\src\routes\Router.php(458): Roteador->{closure}('1')
+#4 C:\xampp\htdocs\api\src\routes\Router.php(440): Router->invoke(Object(Closure), Array)
+#5 C:\xampp\htdocs\api\src\routes\Router.php(287): Router->handle(Array, true)
+#6 C:\xampp\htdocs\api\src\routes\Roteador.php(506): Router->run()
+#7 C:\xampp\htdocs\api.php(4): Roteador->start()
+#8 {main} 
+ **************************************************************************************************** 
+[2025-08-22 01:03:23.000] [Throwable] 
+ Throwable:
+Message: SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`biblioteca`.`livro`, CONSTRAINT `livro_ibfk_2` FOREIGN KEY (`idGenero`) REFERENCES `genero` (`idGenero`))
+Code: 23000
+File: C:\xampp\htdocs\api\src\DAO\GeneroDAO.php
+Line: 41
+Trace:
+#0 C:\xampp\htdocs\api\src\DAO\GeneroDAO.php(41): PDOStatement->execute()
+#1 C:\xampp\htdocs\api\src\controllers\GeneroControl.php(111): GeneroDAO->delete(1)
+#2 C:\xampp\htdocs\api\src\routes\Roteador.php(346): GeneroControl->destroy(1)
+#3 C:\xampp\htdocs\api\src\routes\Router.php(458): Roteador->{closure}('1')
+#4 C:\xampp\htdocs\api\src\routes\Router.php(440): Router->invoke(Object(Closure), Array)
+#5 C:\xampp\htdocs\api\src\routes\Router.php(287): Router->handle(Array, true)
+#6 C:\xampp\htdocs\api\src\routes\Roteador.php(506): Router->run()
+#7 C:\xampp\htdocs\api.php(4): Roteador->start()
+#8 {main} 
+ **************************************************************************************************** 
+[2025-08-22 01:04:50.000] [Throwable] 
+ Throwable:
+Message: SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`biblioteca`.`livro`, CONSTRAINT `livro_ibfk_2` FOREIGN KEY (`idGenero`) REFERENCES `genero` (`idGenero`))
+Code: 23000
+File: C:\xampp\htdocs\api\src\DAO\GeneroDAO.php
+Line: 41
+Trace:
+#0 C:\xampp\htdocs\api\src\DAO\GeneroDAO.php(41): PDOStatement->execute()
+#1 C:\xampp\htdocs\api\src\controllers\GeneroControl.php(111): GeneroDAO->delete(1)
+#2 C:\xampp\htdocs\api\src\routes\Roteador.php(346): GeneroControl->destroy(1)
+#3 C:\xampp\htdocs\api\src\routes\Router.php(458): Roteador->{closure}('1')
+#4 C:\xampp\htdocs\api\src\routes\Router.php(440): Router->invoke(Object(Closure), Array)
+#5 C:\xampp\htdocs\api\src\routes\Router.php(287): Router->handle(Array, true)
+#6 C:\xampp\htdocs\api\src\routes\Roteador.php(506): Router->run()
+#7 C:\xampp\htdocs\api.php(4): Roteador->start()
+#8 {main} 
+ **************************************************************************************************** 
+[2025-08-22 01:15:38.000] [Throwable] 
+ Throwable:
+Message: SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`biblioteca`.`livro`, CONSTRAINT `livro_ibfk_2` FOREIGN KEY (`idGenero`) REFERENCES `genero` (`idGenero`))
+Code: 23000
+File: C:\xampp\htdocs\api\src\DAO\GeneroDAO.php
+Line: 41
+Trace:
+#0 C:\xampp\htdocs\api\src\DAO\GeneroDAO.php(41): PDOStatement->execute()
+#1 C:\xampp\htdocs\api\src\controllers\GeneroControl.php(111): GeneroDAO->delete(1)
+#2 C:\xampp\htdocs\api\src\routes\Roteador.php(346): GeneroControl->destroy(1)
+#3 C:\xampp\htdocs\api\src\routes\Router.php(458): Roteador->{closure}('1')
+#4 C:\xampp\htdocs\api\src\routes\Router.php(440): Router->invoke(Object(Closure), Array)
+#5 C:\xampp\htdocs\api\src\routes\Router.php(287): Router->handle(Array, true)
+#6 C:\xampp\htdocs\api\src\routes\Roteador.php(506): Router->run()
+#7 C:\xampp\htdocs\api.php(4): Roteador->start()
+#8 {main} 
+ **************************************************************************************************** 
+[2025-08-22 01:23:50.000] [Throwable] 
+ Throwable:
+Message: ID do gênero não informado.
+Code: 0
+File: C:\xampp\htdocs\api\src\routes\Roteador.php
+Line: 346
+Trace:
+#0 C:\xampp\htdocs\api\src\routes\Router.php(458): Roteador->{closure}('1')
+#1 C:\xampp\htdocs\api\src\routes\Router.php(440): Router->invoke(Object(Closure), Array)
+#2 C:\xampp\htdocs\api\src\routes\Router.php(287): Router->handle(Array, true)
+#3 C:\xampp\htdocs\api\src\routes\Roteador.php(517): Router->run()
+#4 C:\xampp\htdocs\api.php(4): Roteador->start()
+#5 {main} 
+ **************************************************************************************************** 
+[2025-08-22 01:24:16.000] [Throwable] 
+ Throwable:
+Message: SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`biblioteca`.`livro`, CONSTRAINT `livro_ibfk_2` FOREIGN KEY (`idGenero`) REFERENCES `genero` (`idGenero`))
+Code: 23000
+File: C:\xampp\htdocs\api\src\DAO\GeneroDAO.php
+Line: 41
+Trace:
+#0 C:\xampp\htdocs\api\src\DAO\GeneroDAO.php(41): PDOStatement->execute()
+#1 C:\xampp\htdocs\api\src\controllers\GeneroControl.php(111): GeneroDAO->delete(1)
+#2 C:\xampp\htdocs\api\src\routes\Roteador.php(346): GeneroControl->destroy(1)
+#3 C:\xampp\htdocs\api\src\routes\Router.php(458): Roteador->{closure}('1')
+#4 C:\xampp\htdocs\api\src\routes\Router.php(440): Router->invoke(Object(Closure), Array)
+#5 C:\xampp\htdocs\api\src\routes\Router.php(287): Router->handle(Array, true)
+#6 C:\xampp\htdocs\api\src\routes\Roteador.php(506): Router->run()
+#7 C:\xampp\htdocs\api.php(4): Roteador->start()
+#8 {main} 
+ **************************************************************************************************** 
+[2025-08-22 01:27:47.000] [Throwable] 
+ Throwable:
+Message: SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`biblioteca`.`livro`, CONSTRAINT `livro_ibfk_2` FOREIGN KEY (`idGenero`) REFERENCES `genero` (`idGenero`))
+Code: 23000
+File: C:\xampp\htdocs\api\src\DAO\GeneroDAO.php
+Line: 41
+Trace:
+#0 C:\xampp\htdocs\api\src\DAO\GeneroDAO.php(41): PDOStatement->execute()
+#1 C:\xampp\htdocs\api\src\controllers\GeneroControl.php(111): GeneroDAO->delete(1)
+#2 C:\xampp\htdocs\api\src\routes\Roteador.php(346): GeneroControl->destroy(1)
+#3 C:\xampp\htdocs\api\src\routes\Router.php(458): Roteador->{closure}('1')
+#4 C:\xampp\htdocs\api\src\routes\Router.php(440): Router->invoke(Object(Closure), Array)
+#5 C:\xampp\htdocs\api\src\routes\Router.php(287): Router->handle(Array, true)
+#6 C:\xampp\htdocs\api\src\routes\Roteador.php(506): Router->run()
+#7 C:\xampp\htdocs\api.php(4): Roteador->start()
+#8 {main} 
+ **************************************************************************************************** 
+[2025-08-22 01:33:47.000] [Throwable] 
+ Throwable:
+Message: SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`biblioteca`.`livro`, CONSTRAINT `livro_ibfk_2` FOREIGN KEY (`idGenero`) REFERENCES `genero` (`idGenero`))
+Code: 23000
+File: C:\xampp\htdocs\api\src\DAO\GeneroDAO.php
+Line: 41
+Trace:
+#0 C:\xampp\htdocs\api\src\DAO\GeneroDAO.php(41): PDOStatement->execute()
+#1 C:\xampp\htdocs\api\src\controllers\GeneroControl.php(111): GeneroDAO->delete(1)
+#2 C:\xampp\htdocs\api\src\routes\Roteador.php(346): GeneroControl->destroy(1)
+#3 C:\xampp\htdocs\api\src\routes\Router.php(458): Roteador->{closure}('1')
+#4 C:\xampp\htdocs\api\src\routes\Router.php(440): Router->invoke(Object(Closure), Array)
+#5 C:\xampp\htdocs\api\src\routes\Router.php(287): Router->handle(Array, true)
+#6 C:\xampp\htdocs\api\src\routes\Roteador.php(506): Router->run()
+#7 C:\xampp\htdocs\api.php(4): Roteador->start()
+#8 {main} 
+ **************************************************************************************************** 
+[2025-08-22 01:35:37.000] [Throwable] 
+ Throwable:
+Message: SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`biblioteca`.`livro`, CONSTRAINT `livro_ibfk_2` FOREIGN KEY (`idGenero`) REFERENCES `genero` (`idGenero`))
+Code: 23000
+File: C:\xampp\htdocs\api\src\DAO\GeneroDAO.php
+Line: 41
+Trace:
+#0 C:\xampp\htdocs\api\src\DAO\GeneroDAO.php(41): PDOStatement->execute()
+#1 C:\xampp\htdocs\api\src\controllers\GeneroControl.php(111): GeneroDAO->delete(1)
+#2 C:\xampp\htdocs\api\src\routes\Roteador.php(346): GeneroControl->destroy(1)
+#3 C:\xampp\htdocs\api\src\routes\Router.php(458): Roteador->{closure}('1')
+#4 C:\xampp\htdocs\api\src\routes\Router.php(440): Router->invoke(Object(Closure), Array)
+#5 C:\xampp\htdocs\api\src\routes\Router.php(287): Router->handle(Array, true)
+#6 C:\xampp\htdocs\api\src\routes\Roteador.php(506): Router->run()
+#7 C:\xampp\htdocs\api.php(4): Roteador->start()
+#8 {main} 
+ **************************************************************************************************** 
+[2025-08-22 02:06:05.000] [Throwable] 
+ Throwable:
+Message: SQLSTATE[HY093]: Invalid parameter number: parameter was not defined
+Code: HY093
+File: C:\xampp\htdocs\api\src\DAO\LivroDAO.php
+Line: 319
+Trace:
+#0 C:\xampp\htdocs\api\src\DAO\LivroDAO.php(319): PDOStatement->execute()
+#1 C:\xampp\htdocs\api\src\controllers\LivroControl.php(140): LivroDAO->update(Object(Livro))
+#2 C:\xampp\htdocs\api\src\routes\Roteador.php(451): LivroControl->edit(Object(stdClass))
+#3 C:\xampp\htdocs\api\src\routes\Router.php(458): Roteador->{closure}('6')
+#4 C:\xampp\htdocs\api\src\routes\Router.php(440): Router->invoke(Object(Closure), Array)
+#5 C:\xampp\htdocs\api\src\routes\Router.php(287): Router->handle(Array, true)
+#6 C:\xampp\htdocs\api\src\routes\Roteador.php(506): Router->run()
+#7 C:\xampp\htdocs\api.php(4): Roteador->start()
+#8 {main} 
+ **************************************************************************************************** 
+[2025-08-22 02:06:20.000] [Throwable] 
+ Throwable:
+Message: SQLSTATE[HY093]: Invalid parameter number: parameter was not defined
+Code: HY093
+File: C:\xampp\htdocs\api\src\DAO\LivroDAO.php
+Line: 319
+Trace:
+#0 C:\xampp\htdocs\api\src\DAO\LivroDAO.php(319): PDOStatement->execute()
+#1 C:\xampp\htdocs\api\src\controllers\LivroControl.php(140): LivroDAO->update(Object(Livro))
+#2 C:\xampp\htdocs\api\src\routes\Roteador.php(451): LivroControl->edit(Object(stdClass))
+#3 C:\xampp\htdocs\api\src\routes\Router.php(458): Roteador->{closure}('6')
+#4 C:\xampp\htdocs\api\src\routes\Router.php(440): Router->invoke(Object(Closure), Array)
+#5 C:\xampp\htdocs\api\src\routes\Router.php(287): Router->handle(Array, true)
+#6 C:\xampp\htdocs\api\src\routes\Roteador.php(506): Router->run()
+#7 C:\xampp\htdocs\api.php(4): Roteador->start()
+#8 {main} 
+ **************************************************************************************************** 
+[2025-08-22 02:27:41.000] [Throwable] 
+ Throwable:
+Message: SQLSTATE[HY093]: Invalid parameter number: parameter was not defined
+Code: HY093
+File: C:\xampp\htdocs\api\src\DAO\LivroDAO.php
+Line: 319
+Trace:
+#0 C:\xampp\htdocs\api\src\DAO\LivroDAO.php(319): PDOStatement->execute()
+#1 C:\xampp\htdocs\api\src\controllers\LivroControl.php(140): LivroDAO->update(Object(Livro))
+#2 C:\xampp\htdocs\api\src\routes\Roteador.php(451): LivroControl->edit(Object(stdClass))
+#3 C:\xampp\htdocs\api\src\routes\Router.php(458): Roteador->{closure}('7')
+#4 C:\xampp\htdocs\api\src\routes\Router.php(440): Router->invoke(Object(Closure), Array)
+#5 C:\xampp\htdocs\api\src\routes\Router.php(287): Router->handle(Array, true)
+#6 C:\xampp\htdocs\api\src\routes\Roteador.php(506): Router->run()
+#7 C:\xampp\htdocs\api.php(4): Roteador->start()
+#8 {main} 
+ **************************************************************************************************** 
+[2025-08-22 02:30:00.000] [Throwable] 
+ Throwable:
+Message: SQLSTATE[HY093]: Invalid parameter number: parameter was not defined
+Code: HY093
+File: C:\xampp\htdocs\api\src\DAO\LivroDAO.php
+Line: 319
+Trace:
+#0 C:\xampp\htdocs\api\src\DAO\LivroDAO.php(319): PDOStatement->execute()
+#1 C:\xampp\htdocs\api\src\controllers\LivroControl.php(140): LivroDAO->update(Object(Livro))
+#2 C:\xampp\htdocs\api\src\routes\Roteador.php(451): LivroControl->edit(Object(stdClass))
+#3 C:\xampp\htdocs\api\src\routes\Router.php(458): Roteador->{closure}('8')
+#4 C:\xampp\htdocs\api\src\routes\Router.php(440): Router->invoke(Object(Closure), Array)
+#5 C:\xampp\htdocs\api\src\routes\Router.php(287): Router->handle(Array, true)
+#6 C:\xampp\htdocs\api\src\routes\Roteador.php(506): Router->run()
+#7 C:\xampp\htdocs\api.php(4): Roteador->start()
+#8 {main} 
+ **************************************************************************************************** 
+[2025-08-22 02:31:55.000] [Throwable] 
+ Throwable:
+Message: SQLSTATE[HY093]: Invalid parameter number: parameter was not defined
+Code: HY093
+File: C:\xampp\htdocs\api\src\DAO\LivroDAO.php
+Line: 319
+Trace:
+#0 C:\xampp\htdocs\api\src\DAO\LivroDAO.php(319): PDOStatement->execute()
+#1 C:\xampp\htdocs\api\src\controllers\LivroControl.php(140): LivroDAO->update(Object(Livro))
+#2 C:\xampp\htdocs\api\src\routes\Roteador.php(451): LivroControl->edit(Object(stdClass))
+#3 C:\xampp\htdocs\api\src\routes\Router.php(458): Roteador->{closure}('8')
+#4 C:\xampp\htdocs\api\src\routes\Router.php(440): Router->invoke(Object(Closure), Array)
+#5 C:\xampp\htdocs\api\src\routes\Router.php(287): Router->handle(Array, true)
+#6 C:\xampp\htdocs\api\src\routes\Roteador.php(506): Router->run()
+#7 C:\xampp\htdocs\api.php(4): Roteador->start()
+#8 {main} 
+ **************************************************************************************************** 
+[2025-08-22 02:33:58.000] [Throwable] 
+ Throwable:
+Message: SQLSTATE[HY093]: Invalid parameter number: parameter was not defined
+Code: HY093
+File: C:\xampp\htdocs\api\src\DAO\LivroDAO.php
+Line: 319
+Trace:
+#0 C:\xampp\htdocs\api\src\DAO\LivroDAO.php(319): PDOStatement->execute()
+#1 C:\xampp\htdocs\api\src\controllers\LivroControl.php(140): LivroDAO->update(Object(Livro))
+#2 C:\xampp\htdocs\api\src\routes\Roteador.php(451): LivroControl->edit(Object(stdClass))
+#3 C:\xampp\htdocs\api\src\routes\Router.php(458): Roteador->{closure}('8')
+#4 C:\xampp\htdocs\api\src\routes\Router.php(440): Router->invoke(Object(Closure), Array)
+#5 C:\xampp\htdocs\api\src\routes\Router.php(287): Router->handle(Array, true)
+#6 C:\xampp\htdocs\api\src\routes\Roteador.php(506): Router->run()
+#7 C:\xampp\htdocs\api.php(4): Roteador->start()
+#8 {main} 
+ **************************************************************************************************** 
+[2025-08-24 17:38:24.000] [Throwable] 
+ Throwable:
+Message: Call to undefined method LivroMiddleware::hasNotLivroByName()
+Code: 0
+File: C:\xampp\htdocs\api\src\routes\Roteador.php
+Line: 411
+Trace:
+#0 C:\xampp\htdocs\api\src\routes\Router.php(458): Roteador->{closure}()
+#1 C:\xampp\htdocs\api\src\routes\Router.php(440): Router->invoke(Object(Closure), Array)
+#2 C:\xampp\htdocs\api\src\routes\Router.php(287): Router->handle(Array, true)
+#3 C:\xampp\htdocs\api\src\routes\Roteador.php(506): Router->run()
+#4 C:\xampp\htdocs\api.php(4): Roteador->start()
+#5 {main} 
+ **************************************************************************************************** 
+[2025-08-24 17:39:22.000] [Throwable] 
+ Throwable:
+Message: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`biblioteca`.`livro`, CONSTRAINT `livro_ibfk_1` FOREIGN KEY (`idAutor`) REFERENCES `autor` (`idAutor`))
+Code: 23000
+File: C:\xampp\htdocs\api\src\DAO\LivroDAO.php
+Line: 60
+Trace:
+#0 C:\xampp\htdocs\api\src\DAO\LivroDAO.php(60): PDOStatement->execute()
+#1 C:\xampp\htdocs\api\src\DAO\LivroDAO.php(13): LivroDAO->createWithoutId(Object(Livro))
+#2 C:\xampp\htdocs\api\src\controllers\LivroControl.php(85): LivroDAO->create(Object(Livro))
+#3 C:\xampp\htdocs\api\src\routes\Roteador.php(425): LivroControl->store(Object(stdClass))
+#4 C:\xampp\htdocs\api\src\routes\Router.php(458): Roteador->{closure}()
+#5 C:\xampp\htdocs\api\src\routes\Router.php(440): Router->invoke(Object(Closure), Array)
+#6 C:\xampp\htdocs\api\src\routes\Router.php(287): Router->handle(Array, true)
+#7 C:\xampp\htdocs\api\src\routes\Roteador.php(504): Router->run()
+#8 C:\xampp\htdocs\api.php(4): Roteador->start()
+#9 {main} 
+ **************************************************************************************************** 

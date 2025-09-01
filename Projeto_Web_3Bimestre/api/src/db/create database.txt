@@ -1,0 +1,28 @@
+use biblioteca;
+
+create table autor (
+  idAutor INT AUTO_INCREMENT PRIMARY KEY,
+  nomeAutor VARCHAR(50),
+  nacionalidade VARCHAR(25)
+);
+
+create table livro (
+	idGenero INT PRIMARY KEY,
+    nomeLivro varchar(50),
+	editora varchar(25),
+    anoPublicacao int,
+    idAutor int,
+    foreign key(idAutor) references autor(idAutor)
+); 
+
+create table genero (
+	idGenero INT AUTO_INCREMENT PRIMARY KEY,
+    nomeGenero varchar(25)
+);
+
+create table funcionario(
+idFuncionario int primary key auto_increment,
+nomeFuncionario varchar(255),
+email varchar(64),
+senha varchar(64)
+);

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="divUsuario"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="Autores.html">Autores</a>
+        <a href="Generos.html">Gêneros</a>
+        <a href="Livros.html">Livros</a>
+    </nav>
+</body>
+<section class="mt-3">
+  <h2> Bem-vindo ao Sistema de Biblioteca</h2>
+  <p>
+    Utilize o menu de navegação acima para gerenciar os principais cadastros do sistema:
+  </p>
+  <ul>
+    <li><strong>Autores:</strong> Cadastre, edite e consulte os autores disponíveis no sistema.</li>
+    <li><strong>Gêneros:</strong> Registre os gêneros por categorias como Romance, Ficção, Fantasia, etc.</li>
+    <li><strong>Livros:</strong> Registre os livros, vinculando-os a autores e gêneros já cadastrados.</li>
+  </ul>
+  <p>
+    Essa dashboard é o ponto de partida para acessar e administrar todas as informações da biblioteca de forma simples e prática.
+  </p>
+</section>
+
+<script type="module">
+    const divUsuario = document.getElementById("divUsuario");
+    let userData = localStorage.getItem("userData");
+
+    if (userData) {
+        userData = JSON.parse(userData);
+        divUsuario.textContent = "Bem Vindo (" + userData.data.funcionario[0].nomeFuncionario + ")";
+        divUsuario.className = "alert alert-primary";
+    }else{
+         window.location.href = "login.html"; 
+    }
+
+</script>
+
+</html>

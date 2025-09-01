@@ -10,6 +10,10 @@ require_once "api/src/middlewares/LivroMiddleware.php";
 require_once "api/src/controllers/GeneroControl.php";
 require_once "api/src/middlewares/GeneroMiddleware.php";
 
+require_once "api/src/controllers/LoginControl.php";
+require_once "api/src/middlewares/LoginMiddleware.php";
+require_once "api/src/middlewares/JWTMiddlware.php";
+
 class Roteador
 {
 public function __construct(private Router $router = new Router())
@@ -19,8 +23,7 @@ public function __construct(private Router $router = new Router())
 
         // Por exemplo: permitir requisições de diferentes domínios, definir tipo de conteúdo etc.
         $this->setupHeaders();
-
-        // Aqui são mapeadas URNs específicas para controladores e métodos que irão tratá-las
+        $this->setupLoginRoutes();
         $this->setupAutorRoutes();
         $this->setupGenerosRoutes();
         $this->setupLivrosRoutes();
@@ -79,10 +82,47 @@ public function __construct(private Router $router = new Router())
 
         exit();
     }
+    private function setupLoginRoutes()
+    {
+        $this->router->post(pattern: '/logar', fn: function (): never {
+
+            try {
+
+                $requestBody = file_get_contents(filename: "php://input");
+
+                $loginMiddleare = new LoginMiddleware();
+
+                $stdLogin = $loginMiddleare->stringJsonToStdClass($requestBody);
+
+                $loginMiddleare
+                    ->isValidEmail($stdLogin->funcionario->email)
+                    ->isvalidSenha($stdLogin->funcionario->senha);
+
+                $LoginControl = new LoginControl();
+
+                $LoginControl->autenticar($stdLogin);
+
+
+
+            } catch (Throwable $throwable) {
+                // Caso ocorra um erro durante o processamento, envia uma resposta de erro para o cliente
+                $this->sendErrorResponse(
+                    throwable: $throwable,
+                    message: 'Erro ao efetuar login'
+                );
+            }
+
+            // Finaliza a execução do script após o envio da resposta (não continua a execução do código)
+            exit();
+        });
+    }
+    
 private function setupAutorRoutes(): void
 {
     $this->router->get(pattern: '/autores', fn: function (): never
         {
+            $tokenMiddleware = new JWTMiddlware(); 
+            $claims = $tokenMiddleware->isValidToken();
 
             try {
                 $autorControl = new AutorControl();
@@ -115,6 +155,8 @@ private function setupAutorRoutes(): void
 
     $this->router->get(pattern: "/autores/(\d+)", fn: function ($idAutor): never {
             try {
+                $tokenMiddleware = new JWTMiddlware(); 
+                $claims = $tokenMiddleware->isValidToken();
                 $autorMiddleware = new AutorMiddleware();
                 $autorMiddleware
                     ->isValidId(idAutor: $idAutor); 
@@ -134,7 +176,8 @@ private function setupAutorRoutes(): void
         // Rota para criar um novo autor POST /autores
         $this->router->post(pattern: "/autores", fn: function (): never {
             try {
-                
+                $tokenMiddleware = new JWTMiddlware(); 
+                $claims = $tokenMiddleware->isValidToken();
                 $requestBody = file_get_contents(filename: "php://input");
                 $autorMiddleware = new AutorMiddleware();
                 $stdAutor = $autorMiddleware->stringJsonToStdClass(requestBody: $requestBody);
@@ -158,6 +201,8 @@ private function setupAutorRoutes(): void
         // Endpoint de exemplo: PUT /autores/123
         $this->router->put(pattern: "/autores/(\d+)", fn: function ($id): never {
             try {
+                $tokenMiddleware = new JWTMiddlware(); 
+                $claims = $tokenMiddleware->isValidToken();
                 $requestBody = file_get_contents(filename: "php://input");
                 $autorMiddleware = new AutorMiddleware();
                 $stdAutor = $autorMiddleware->stringJsonToStdClass(requestBody: $requestBody);
@@ -183,7 +228,8 @@ private function setupAutorRoutes(): void
         // Endpoint de exemplo: DELETE /autores/123
         $this->router->delete(pattern: "/autores/(\d+)", fn: function ($idAutor): never {
             try {
-    
+                $tokenMiddleware = new JWTMiddlware(); 
+                 $claims = $tokenMiddleware->isValidToken();
                 $autorMiddleware = new AutorMiddleware();
                 $autorMiddleware->isValidId(idAutor: $idAutor);
                 $autorControl = new AutorControl();
@@ -206,6 +252,8 @@ private function setupAutorRoutes(): void
         {
 
             try {
+                $tokenMiddleware = new JWTMiddlware(); 
+                $claims = $tokenMiddleware->isValidToken();
                 $generoControl = new GeneroControl();
 
                 if ((isset($_GET['page'])) && isset($_GET['limit'])) {
@@ -235,6 +283,8 @@ private function setupAutorRoutes(): void
         });
         $this->router->get(pattern: "/generos/(\d+)", fn: function ($idGenero): never {
             try {
+                $tokenMiddleware = new JWTMiddlware(); 
+                $claims = $tokenMiddleware->isValidToken();
                 $generoMiddleware = new GeneroMiddleware();
                 $generoMiddleware
                     ->isValidId(idGenero: $idGenero); 
@@ -253,7 +303,8 @@ private function setupAutorRoutes(): void
         // Rota para criar um novo caro POST /generos
         $this->router->post(pattern: "/generos", fn: function (): never {
             try {
-                
+                $tokenMiddleware = new JWTMiddlware(); 
+                 $claims = $tokenMiddleware->isValidToken();
                 $requestBody = file_get_contents(filename: "php://input");
                 $generoMiddleware = new GeneroMiddleware();
                 $stdGenero = $generoMiddleware->stringJsonToStdClass(requestBody: $requestBody);
@@ -276,6 +327,8 @@ private function setupAutorRoutes(): void
         // Endpoint de exemplo: PUT /generos/123
         $this->router->put(pattern: "/generos/(\d+)", fn: function ($idGenero): never {
             try {
+                $tokenMiddleware = new JWTMiddlware();
+                $claims = $tokenMiddleware->isValidToken();
                 $requestBody = file_get_contents(filename: "php://input");
                 $generoMiddleware = new GeneroMiddleware();
                 $stdGenero = $generoMiddleware->stringJsonToStdClass(requestBody: $requestBody);
@@ -301,7 +354,8 @@ private function setupAutorRoutes(): void
         // Endpoint de exemplo: DELETE /generos/123
         $this->router->delete(pattern: "/generos/(\d+)", fn: function ($idGenero): never {
             try {
-    
+                $tokenMiddleware = new JWTMiddlware(); 
+            $claims = $tokenMiddleware->isValidToken();
                 $generoMiddleware = new GeneroMiddleware();
                 $generoMiddleware->isValidId(idGenero: $idGenero);
                 $generoControl = new GeneroControl();
@@ -323,6 +377,8 @@ private function setupAutorRoutes(): void
         $this->router->get(pattern: '/livros', fn: function (): never
         {
             try {
+                $tokenMiddleware = new JWTMiddlware(); 
+            $claims = $tokenMiddleware->isValidToken();
                 $livroControl = new LivroControl();
 
                 if ((isset($_GET['page'])) && isset($_GET['limit'])) {
@@ -345,6 +401,8 @@ private function setupAutorRoutes(): void
         });
         $this->router->get(pattern: "/livros/(\d+)", fn: function ($idLivro): never {
             try {
+                $tokenMiddleware = new JWTMiddlware(); 
+            $claims = $tokenMiddleware->isValidToken();
                 $livroMiddleware = new LivroMiddleware();
                 $livroMiddleware
                     ->isValidId(idLivro: $idLivro); 
@@ -363,14 +421,14 @@ private function setupAutorRoutes(): void
         // Rota para criar um novo caro POST /livros
         $this->router->post(pattern: "/livros", fn: function (): never {
             try {
-                
+                $tokenMiddleware = new JWTMiddlware(); 
+            $claims = $tokenMiddleware->isValidToken();
                 $requestBody = file_get_contents("php://input");
                 $livroMiddleware = new LivroMiddleware();
                 $stdLivro = $livroMiddleware->stringJsonToStdClass(requestBody: $requestBody);
 
                 $livroMiddleware
                     ->isValidNomeLivro(nomeLivro: $stdLivro->livro->nomeLivro) 
-                    ->hasNotLivroByName(nomeLivro: $stdLivro->livro->nomeLivro)
                     ->isValidEditora(editora: $stdLivro->livro->editora)
                     ->isValidAnoPublicacao(anoPublicacao: $stdLivro->livro->anoPublicacao);
 
@@ -400,13 +458,14 @@ private function setupAutorRoutes(): void
         // Endpoint de exemplo: PUT /livros/123
         $this->router->put(pattern: "/livros/(\d+)", fn: function ($idLivro): never {
             try {
+                $tokenMiddleware = new JWTMiddlware(); 
+            $claims = $tokenMiddleware->isValidToken();
                 $requestBody = file_get_contents(filename: "php://input");
                 $livroMiddleware = new LivroMiddleware();
                 $stdLivro = $livroMiddleware->stringJsonToStdClass(requestBody: $requestBody);
                 $livroMiddleware
                     ->isValidId(idLivro: $idLivro) // Valida o ID do cargo
-                    ->isValidNomeLivro(nomeLivro: $stdLivro->livro->nomeLivro) 
-                    ->hasNotLivroByName(nomeLivro: $stdLivro->livro->nomeLivro);
+                    ->isValidNomeLivro(nomeLivro: $stdLivro->livro->nomeLivro);
                 $stdLivro->livro->idLivro = $idLivro;
                 #$stdAutor->autor->idAutor = $id;
                 $livroControl = new LivroCOntrol();
@@ -425,7 +484,8 @@ private function setupAutorRoutes(): void
         // Endpoint de exemplo: DELETE /livros/123
         $this->router->delete(pattern: "/livros/(\d+)", fn: function ($idLivro): never {
             try {
-    
+    $tokenMiddleware = new JWTMiddlware(); 
+            $claims = $tokenMiddleware->isValidToken();
                 $livroMiddleware = new LivroMiddleware();
                 $livroMiddleware->isValidId(idLivro: $idLivro);
                 $livroControl = new LivroControl();

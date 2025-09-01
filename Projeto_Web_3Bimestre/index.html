@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Teste de Fala</title>
+</head>
+<body>
+  <h1>Teste de Text-to-Speech</h1>
+  <button id="btnFalar">Falar</button>
+
+  <script>
+    document.getElementById("btnFalar").addEventListener("click", () => {
+      const textoParaFalar = "Olá mundo! Este é um teste de síntese de fala em português do Brasil.";
+      const fala = new SpeechSynthesisUtterance(textoParaFalar);
+      fala.lang = "pt-BR";   
+      fala.volume = 1;       
+      fala.rate = 1;      
+      fala.pitch = 1;     
+
+      window.speechSynthesis.speak(fala);
+    });
+  </script>
+</body>
+</html>

@@ -113,13 +113,11 @@ class LivroDAO
         try {
             var_dump($livro->getAutor()->getIdAutor(), $livro->getGenero()->getIdGenero());
     $statement->execute();
-} catch (PDOException $e) {
-     echo "Erro: " . $e->getMessage() . "<br>";
-    print_r($statement->errorInfo());
-    exit;
-}
-
-       
+        } catch (PDOException $e) {
+            echo "Erro: " . $e->getMessage() . "<br>";
+            print_r($statement->errorInfo());
+            exit;
+    }
 
         return $livro;
     }
@@ -135,7 +133,7 @@ class LivroDAO
         FROM livro
         JOIN autor ON autor.idAutor = livro.idAutor
         JOIN genero ON genero.idGenero = livro.idGenero
-        ORDER BY nomeLivro ASC
+        ORDER BY idLivro ASC
 
     ';
 
@@ -193,12 +191,7 @@ class LivroDAO
     ';
 
         $statement = Database::getConnection()->prepare(query: $query);
-
-        $statement->bindValue(
-            param: ':idLivro',
-            value: $idLivro,
-            type: PDO::PARAM_INT
-        );
+        $statement->bindValue(param: ':idLivro',value: $idLivro,type: PDO::PARAM_INT);
         $statement->execute();
         $livro = new Livro();
         $linha = $statement->fetch(mode: PDO::FETCH_OBJ);
@@ -222,108 +215,69 @@ class LivroDAO
         return [$livro];
     }
 
-    public function readByName(string $nomeLivro): array
-    {
-        $linha = [];
+    public function readByName(string $nomeLivro): ?Livro
+{
+    $query = 'SELECT
+        idLivro,
+        nomeLivro,
+        anoPublicacao,
+        editora,
+        livro.idAutor,
+        livro.idGenero
+        FROM livro
+        JOIN autor ON autor.idAutor = livro.idAutor
+        JOIN genero ON genero.idGenero = livro.idGenero
+        WHERE nomeLivro = :nomeLivro
+        LIMIT 1';
 
-        $query = 'SELECT
-            idLivro,
-            nomeLivro,
-            anoPublicacao,
-            editora,
-            livro.idAutor,
-            livro.idGenero
-            FROM livro
-            JOIN autor ON autor.idAutor = livro.idAutor
-            JOIN genero ON genero.idGenero = livro.idGenero
-            WHERE nomeLivro = :nomeLivro
-            LIMIT 1';
-        $statement = Database::getConnection()->prepare($query);
+    $statement = Database::getConnection()->prepare($query);
+    $statement->bindValue(param: ':nomeLivro', value: $nomeLivro, type: PDO::PARAM_STR);
+    $statement->execute();
+    $linha = $statement->fetch(mode: PDO::FETCH_OBJ);
 
-        $statement->bindValue(
-            param: ':nomeLivro',
-            value: $nomeLivro,
-            type: PDO::PARAM_STR
-        );
-
-        $statement->execute();
-
-        $linha = $statement->fetch(mode: PDO::FETCH_OBJ);
-
-        if (!$linha) {
-            return []; 
-        }
-
-        $livro = new Livro();
-        $livro
-         ->setidLivro(idLivro: $linha->idLivro )                 
-                ->setNomeLivro(nomeLivro: $linha->nomeLivro)        
-                ->setAnoPublicacao(anoPublicacao: $linha->anoPublicacao)                                         // Email
-                ->setEditora(editora: $linha->editora);
-
-            $livro->getAutor()
-                ->setIdAutor(idAutor: $linha->idAutor);       
-            $livro->getGenero()
-                ->setIdGenero(idGenero: $linha->idGenero) ;
-            return [$livro];
-
+    if (!$linha) {
+        return null; 
     }
+
+    $livro = new Livro();
+    $livro
+        ->setidLivro(idLivro: $linha->idLivro)
+        ->setNomeLivro(nomeLivro: $linha->nomeLivro)
+        ->setAnoPublicacao(anoPublicacao: $linha->anoPublicacao)
+        ->setEditora(editora: $linha->editora);
+
+    $livro->getAutor()
+        ->setIdAutor(idAutor: $linha->idAutor);
+    $livro->getGenero()
+        ->setIdGenero(idGenero: $linha->idGenero);
+
+    return $livro;
+}
      public function update(Livro $livro): bool
-    {
-        $query = 'UPDATE livro
-                  SET 
-                    nomeLivro = :nomeLivro,     
-                    anoPublicacao = :anopublicacao,
-                    editora = :editora,
-                    livro.idAutor = :idAutor,
-                    livro.idAutor = :idGenero
-                  WHERE 
-                    livro.idAutor = :idAutor';
+{
+    $query = 'UPDATE livro
+              SET 
+                nomeLivro = :nomeLivro,     
+                anoPublicacao = :anoPublicacao,
+                editora = :editora,
+                idAutor = :idAutor,
+                idGenero = :idGenero
+              WHERE 
+                idLivro = :idLivro';
 
-        $statement = Database::getConnection()->prepare($query);
-        $statement->bindValue(
-            param: ':nomeLivro',
-            value: $livro->getNomeLivro(),
-            type: PDO::PARAM_STR
-        );
+    $statement = Database::getConnection()->prepare($query);
 
-        $statement->bindValue(
-            param: ':ano_publicacao',
-            value: $livro->getAnoPublicacao(),
-            type: PDO::PARAM_STR
-        );
+    $statement->bindValue(':nomeLivro', $livro->getNomeLivro(), PDO::PARAM_STR);
+    $statement->bindValue(':anoPublicacao', $livro->getAnoPublicacao(), PDO::PARAM_STR);
+    $statement->bindValue(':editora', $livro->getEditora(), PDO::PARAM_STR);
+    $statement->bindValue(':idAutor', $livro->getAutor()->getIdAutor(), PDO::PARAM_INT);
+    $statement->bindValue(':idGenero', $livro->getGenero()->getIdGenero(), PDO::PARAM_INT);
+    $statement->bindValue(':idLivro', $livro->getIdLivro(), PDO::PARAM_INT);
 
-        $statement->bindValue(
-            param: ':editora',
-            value: $livro->getEditora(),
-            type: PDO::PARAM_INT
-        );
+    $statement->execute();
 
-        $statement->bindValue(
-            param: ':idAutor',
-            value: $livro->getAutor()->getIdAutor(),
-            type: PDO::PARAM_INT
-        );
-        $statement->bindValue(
-            param: ':idGenero',
-            value: $livro->getGenero()->getIdGenero(),
-            type: PDO::PARAM_INT
-        );
-
-        $statement->bindValue(
-            param: ':idLivro',
-            value: $livro->getidLivro(),
-            type: PDO::PARAM_INT
-        );
-
-        $statement->execute();
-
-        if ($statement->rowCount() > 0) {
-            return true;
-        }
-
-        return false;
-    }
+    return $statement->rowCount() > 0;
+}
     public function readByPage(int $page, int $limit): array
     {
 

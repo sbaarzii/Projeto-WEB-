@@ -184,7 +184,6 @@ class LivroMiddleware{
     $livroDAO = new LivroDAO();
     $livro = $livroDAO->readByName(nomeLivro: $nomeLivro);
 
-    // Se encontrou um livro (não está vazio), está OK
     if (!empty($livro)) {
         return $this;
     }
@@ -202,29 +201,35 @@ class LivroMiddleware{
 
     exit();
 }
-
-public function hasNotLivroByName($nomeLivro): self
+public function hasNotLivroByName($nomeLivro, $idLivro = null): self
 {
     $livroDAO = new LivroDAO();
     $livro = $livroDAO->readByName(nomeLivro: $nomeLivro);
 
-    // Se encontrou livro, então está duplicado -> ERRO
-    if (!empty($livro)) {
-        (new Response(
-            success: false,
-            message: "já existe um livro cadastrado com o nome ($nomeLivro)",
-            error: [
-                'code' => 'validation_error',
-                'message' => 'Livro cadastrado anteriormente',
-            ],
-            httpCode: 400
-        ))->send();
-        exit();
+    // Se não existe livro com esse nome, está ok
+    if (!isset($livro)) {
+        return $this;
     }
 
-    // Caso contrário, OK
-    return $this;
+    // Se está editando e o id é igual ao do livro encontrado, está ok
+    if ($idLivro !== null && isset($livro->$idLivro) && $livro->$idLivro == $idLivro) {
+        return $this;
+    }
+
+    // Caso contrário, já existe outro livro com esse nome
+    (new Response(
+        success: false,
+        message: "já existe um livro cadastrado com o nome ($nomeLivro)",
+        error: [
+            'code' => 'validation_error',
+            'message' => 'Livro cadastrado anteriormente',
+        ],
+        httpCode: 400
+    ))->send();
+
+    exit();
 }
+
     public function hasAutorById($idAutor): self
     {
         $autorDAO = new AutorDAO();

@@ -14,13 +14,9 @@ class LivroControl
 {
     public function index(): never
     {
-        // Cria uma instância do DAO para acessar o banco de dados
         $livroDAO = new LivroDAO();
-
-        // Busca todos os cargos cadastrados
         $livros = $livroDAO->readAll();
 
-        // Envia a resposta com os dados obtidos
         (new Response(
             success: true,
             message: 'Dados selecionados com sucesso',
@@ -36,14 +32,14 @@ class LivroControl
         if (isset($livro)) {
             (new Response(
                 success: true,
-                message: 'autor encontrado com sucesso',
+                message: 'livro encontrado com sucesso',
                 data: ['LIVROS' => $livro], 
                 httpCode: 200  
             ))->send();
         } else {
             (new Response(
                 success: false,
-                message: 'autor não encontrado',
+                message: 'livro não encontrado',
                 httpCode: 404
             ))->send();
         }
