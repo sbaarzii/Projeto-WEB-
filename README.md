@@ -127,7 +127,7 @@ Os middlewares são responsáveis por validar o token em cada requisição.
 1. Clone o repositório:  
    ```bash
    git clone https://github.com/sbaarzii/Projeto-WEB-.git
-````
+
 
 2. Configure um servidor **Apache + PHP 8** (pode usar XAMPP, WAMP ou Docker).
 3. Crie o banco de dados no MySQL utilizando o script em `create database.txt`.
